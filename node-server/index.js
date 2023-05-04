@@ -15,7 +15,6 @@ app.post('/api/data', async (req, res) => {
   const { text } = req.body
   console.log('body', req.body)
   data.push(text)
-  res.status(500)
   return res.json('OK')
 })
 

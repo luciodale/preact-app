@@ -5,11 +5,22 @@ import {
   PersistedClient,
   Persister
 } from '@tanstack/react-query-persist-client'
+import {
+  Link,
+  Outlet,
+  RootRoute,
+  Route,
+  Router,
+  RouterProvider,
+  lazy
+} from '@tanstack/router'
+import { TanStackRouterDevtools } from '@tanstack/router-devtools'
 import { del, get, set } from 'idb-keyval'
+import { StrictMode } from 'preact/compat'
 import toast, { Toaster } from 'react-hot-toast'
 import './app.css'
-import { Report } from './components/Report'
 import { log } from './logger'
+import { fetchData } from './queries'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -67,23 +78,85 @@ export function createIDBPersister(idbValidKey: IDBValidKey = 'tbSpecialist') {
 
 const persister = createIDBPersister()
 
+const rootRoute = new RootRoute({
+  component: () => (
+    <>
+      <div className='p-2 flex gap-2 text-lg'>
+        <Link
+          to='/'
+          activeProps={{
+            className: 'font-bold'
+          }}
+          activeOptions={{ exact: true }}
+        >
+          Home
+        </Link>{' '}
+        <Link
+          to='/report'
+          activeProps={{
+            className: 'font-bold'
+          }}
+        >
+          Report
+        </Link>
+      </div>
+      <hr />
+      <Outlet /> {/* Start rendering router matches */}
+      <TanStackRouterDevtools initialIsOpen={false} position='bottom-left' />
+    </>
+  )
+})
+
+const indexRoute = new Route({
+  getParentRoute: () => rootRoute,
+  path: '/',
+  component: () => (
+    <div className='p-2'>
+      <h3>Welcome Home!</h3>
+    </div>
+  )
+})
+
+const reportRoute = new Route({
+  getParentRoute: () => rootRoute,
+  path: 'report',
+  loader: () =>
+    queryClient.ensureQueryData({ queryKey: ['data'], queryFn: fetchData }),
+  component: lazy(() => import('./components/Report')),
+  errorComponent: () => 'Oh crap!'
+})
+
+declare module '@tanstack/router' {
+  interface Register {
+    router: typeof router
+  }
+}
+
+const routeTree = rootRoute.addChildren([indexRoute, reportRoute])
+
+const router = new Router({
+  routeTree,
+  defaultPreload: 'intent'
+})
+
 export function App() {
   return (
-    <PersistQueryClientProvider
-      client={queryClient}
-      persistOptions={{ persister }}
-      onSuccess={() => {
-        log.debug('PersistQueryClientProvider.onSuccess')
-        // resume mutations after initial restore from IDB was successful
-        queryClient.resumePausedMutations().then(() => {
-          queryClient.invalidateQueries()
-        })
-      }}
-    >
-      <Report />
-
-      <Toaster />
-      <ReactQueryDevtools initialIsOpen={false} />
-    </PersistQueryClientProvider>
+    <StrictMode>
+      <PersistQueryClientProvider
+        client={queryClient}
+        persistOptions={{ persister }}
+        onSuccess={() => {
+          log.debug('PersistQueryClientProvider.onSuccess')
+          // resume mutations after initial restore from IDB was successful
+          queryClient.resumePausedMutations().then(() => {
+            queryClient.invalidateQueries()
+          })
+        }}
+      >
+        <RouterProvider router={router} />
+        <Toaster />
+        <ReactQueryDevtools initialIsOpen={false} position='bottom-right' />
+      </PersistQueryClientProvider>
+    </StrictMode>
   )
 }

@@ -199,7 +199,7 @@
     "@babel/plugin-syntax-jsx" "^7.21.4"
     "@babel/types" "^7.21.5"
 
-"@babel/runtime@^7.20.7":
+"@babel/runtime@^7.16.7", "@babel/runtime@^7.20.7", "@babel/runtime@^7.21.0":
   version "7.21.5"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.21.5.tgz#8492dddda9644ae3bda3b45eabe87382caee7200"
   integrity sha512-8jI69toZqqcsnqGGqwGS4Qb1VwLOEp4hz+CXPywcvjs60u3B4Pom/U/7rm4W8tMOYEB+E9wgD0mW1l3r8qlI9Q==
@@ -549,6 +549,38 @@
   dependencies:
     "@tanstack/query-core" "4.29.5"
     use-sync-external-store "^1.2.0"
+
+"@tanstack/react-store@0.0.1-beta.84":
+  version "0.0.1-beta.84"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-store/-/react-store-0.0.1-beta.84.tgz#3fde9dc31dde7c443f3957124f3218d382cfd2f6"
+  integrity sha512-NHCt8pPjcwENwMPnaXdu1ZdvpE/u6JJdZwl/5aKxX9gW4XtLvpNEXHq1KyuOMk2ZfWInW2cuDsDsK5+iZARhrg==
+  dependencies:
+    "@tanstack/store" "0.0.1-beta.84"
+    use-sync-external-store "^1.2.0"
+
+"@tanstack/router-devtools@0.0.1-beta.84":
+  version "0.0.1-beta.84"
+  resolved "https://registry.yarnpkg.com/@tanstack/router-devtools/-/router-devtools-0.0.1-beta.84.tgz#7f7299dd22b835f105c22335b55d754afbe0a3bf"
+  integrity sha512-dVgmETdpI+SlXlbddVj0PayHzka1CQkKOF7oJhkHX3W07NVuHJ/ejmP10jlXlfedk6R5t3NJsUQvfaDR8CiyAQ==
+  dependencies:
+    "@babel/runtime" "^7.16.7"
+    "@tanstack/router" "0.0.1-beta.84"
+    date-fns "^2.29.1"
+
+"@tanstack/router@0.0.1-beta.84":
+  version "0.0.1-beta.84"
+  resolved "https://registry.yarnpkg.com/@tanstack/router/-/router-0.0.1-beta.84.tgz#e1f6839bc7c98e1a403f52e54aaa9f8e88fe48c6"
+  integrity sha512-H60a44hnmbIY0658xdXY5bNkf1Z9F8wEDj15ZX+4pwuvJYm2cLJ9IzLLc+S6GP9x1WudPaCPzY4CaMVF6B1GNw==
+  dependencies:
+    "@babel/runtime" "^7.16.7"
+    "@tanstack/react-store" "0.0.1-beta.84"
+    tiny-invariant "^1.3.1"
+    tiny-warning "^1.0.3"
+
+"@tanstack/store@0.0.1-beta.84":
+  version "0.0.1-beta.84"
+  resolved "https://registry.yarnpkg.com/@tanstack/store/-/store-0.0.1-beta.84.tgz#d5efc59f55b64ba891f0df782fd4a614d5918e85"
+  integrity sha512-sqE4U8b/bNxXLrm5uoDET7glaZvThn0FPNperVNZV+XXwkJUFcc+/KH7n1MwCi7Y/76FeMpKWLRmEx9KhZbq3A==
 
 "@types/json-schema@^7.0.9":
   version "7.0.11"
@@ -988,6 +1020,13 @@ damerau-levenshtein@^1.0.8:
   version "1.0.8"
   resolved "https://registry.yarnpkg.com/damerau-levenshtein/-/damerau-levenshtein-1.0.8.tgz#b43d286ccbd36bc5b2f7ed41caf2d0aba1f8a6e7"
   integrity sha512-sdQSFB7+llfUcQHUQO3+B8ERRj0Oa4w9POWMI/puGtuf7gFywGmkaLCElnudfTiKZV+NvHqL0ifzdrI8Ro7ESA==
+
+date-fns@^2.29.1:
+  version "2.30.0"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.30.0.tgz#f367e644839ff57894ec6ac480de40cae4b0f4d0"
+  integrity sha512-fnULvOpxnC5/Vg3NCiWelDsLiUc9bRwAPs/+LfTLNvetFCtCTN+yQz15C/fs4AwX1R9K5GLtLfn8QW+dWisaAw==
+  dependencies:
+    "@babel/runtime" "^7.21.0"
 
 debug@^3.2.7:
   version "3.2.7"
@@ -2749,10 +2788,15 @@ thenify-all@^1.0.0:
   dependencies:
     any-promise "^1.0.0"
 
-tiny-invariant@^1.1.0:
+tiny-invariant@^1.1.0, tiny-invariant@^1.3.1:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/tiny-invariant/-/tiny-invariant-1.3.1.tgz#8560808c916ef02ecfd55e66090df23a4b7aa642"
   integrity sha512-AD5ih2NlSssTCwsMznbvwMZpJ1cbhkGd2uueNxzv2jDlEeZdU04JQfRnggJQ8DrcVBGjAsCKwFBbDlVNtEMlzw==
+
+tiny-warning@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/tiny-warning/-/tiny-warning-1.0.3.tgz#94a30db453df4c643d0fd566060d60a875d84754"
+  integrity sha512-lBN9zLN/oAf68o3zNXYrdCt1kP8WsiGW8Oo2ka41b2IM5JL/S1CTyX1rW0mb/zSuJun0ZUrDxx4sqvYS2FWzPA==
 
 to-fast-properties@^2.0.0:
   version "2.0.0"

@@ -1,14 +1,15 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'preact/hooks'
 import { log } from '../logger'
+import { fetchData } from '../queries'
 
-export function Report() {
+export default function Report() {
   const queryClient = useQueryClient()
   const [comment, setComment] = useState<string>()
 
   const { isLoading, error, data } = useQuery<string[], Error>({
     queryKey: ['data'],
-    queryFn: () => fetch('/api/data').then((res) => res.json())
+    queryFn: fetchData
   })
 
   const updateList = useMutation<
