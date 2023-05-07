@@ -18,6 +18,7 @@ import { del, get, set } from 'idb-keyval'
 import { StrictMode } from 'preact/compat'
 import toast, { Toaster } from 'react-hot-toast'
 import './app.css'
+import { GeoLocation } from './components/Geolocation'
 import Report from './components/Report'
 import { log } from './logger'
 import { fetchData } from './queries'
@@ -91,13 +92,21 @@ const rootRoute = new RootRoute({
         >
           Home
         </Link>{' '}
-        <Link
+        {/* <Link
           to='/report'
           activeProps={{
             className: 'font-bold'
           }}
         >
           Report
+        </Link> */}
+        <Link
+          to='/geolocation'
+          activeProps={{
+            className: 'font-bold'
+          }}
+        >
+          Geolocation
         </Link>
       </div>
       <hr />
@@ -126,13 +135,24 @@ const reportRoute = new Route({
   errorComponent: () => 'Oh crap!'
 })
 
+const geolocationRoute = new Route({
+  getParentRoute: () => rootRoute,
+  path: 'geolocation',
+  component: () => <GeoLocation />,
+  errorComponent: () => 'Oh crap!'
+})
+
 declare module '@tanstack/router' {
   interface Register {
     router: typeof router
   }
 }
 
-const routeTree = rootRoute.addChildren([indexRoute, reportRoute])
+const routeTree = rootRoute.addChildren([
+  indexRoute,
+  reportRoute,
+  geolocationRoute
+])
 
 const router = new Router({
   routeTree,
