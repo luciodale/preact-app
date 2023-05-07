@@ -11,14 +11,14 @@ import {
   RootRoute,
   Route,
   Router,
-  RouterProvider,
-  lazy
+  RouterProvider
 } from '@tanstack/router'
 import { TanStackRouterDevtools } from '@tanstack/router-devtools'
 import { del, get, set } from 'idb-keyval'
 import { StrictMode } from 'preact/compat'
 import toast, { Toaster } from 'react-hot-toast'
 import './app.css'
+import Report from './components/Report'
 import { log } from './logger'
 import { fetchData } from './queries'
 
@@ -122,7 +122,7 @@ const reportRoute = new Route({
   path: 'report',
   loader: () =>
     queryClient.ensureQueryData({ queryKey: ['data'], queryFn: fetchData }),
-  component: lazy(() => import('./components/Report')),
+  component: () => <Report />,
   errorComponent: () => 'Oh crap!'
 })
 
