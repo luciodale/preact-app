@@ -17,6 +17,7 @@ export default function Report() {
   function getGeoLocation() {
     navigator.geolocation.getCurrentPosition(
       (position) => {
+        console.log('position', position)
         const pos = position.coords
         setCoords(pos)
       },
