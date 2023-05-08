@@ -1,7 +1,7 @@
 module.exports = {
   root: true,
   env: {
-    browser: true,
+    browser: true
   },
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint'],
@@ -12,7 +12,7 @@ module.exports = {
     'airbnb',
     'airbnb-typescript',
     'airbnb/hooks',
-    'prettier',
+    'prettier'
   ],
   parserOptions: {
     project: './tsconfig.json',
@@ -20,8 +20,8 @@ module.exports = {
     sourceType: 'module',
     ecmaFeatures: {
       impliedStrict: true,
-      jsx: true,
-    },
+      jsx: true
+    }
   },
   rules: {
     '@typescript-eslint/no-explicit-any': 'error',
@@ -42,5 +42,6 @@ module.exports = {
     'no-unused-vars': 'off',
     'no-shadow': 'off',
     'consistent-return': 'off',
-  },
-};
+    'no-console': 'off'
+  }
+}

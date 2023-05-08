@@ -1,6 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'preact/hooks'
-import { log } from '../logger'
 import { fetchData } from '../queries'
 
 export default function Report() {
@@ -11,21 +10,6 @@ export default function Report() {
     queryKey: ['data'],
     queryFn: fetchData
   })
-
-  const [coords, setCoords] = useState<GeolocationCoordinates>()
-
-  function getGeoLocation() {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        log.debug('position', position)
-        const pos = position.coords
-        setCoords(pos)
-      },
-      (error) => {
-        log.debug('error', error)
-      }
-    )
-  }
 
   const updateList = useMutation<
     Promise<string>,
@@ -45,7 +29,7 @@ export default function Report() {
       return previousData
     },
     onError: (_, __, context) => {
-      log.debug('onError', context)
+      console.log('onError', context)
       // TODO: fix the context type. It should be the same as the return type of onMutate
       // queryClient.setQueryData(['data'], context?.previousData)
     },
@@ -65,16 +49,6 @@ export default function Report() {
 
   return (
     <div className='bg-green-800'>
-      <button type='button' onClick={getGeoLocation}>
-        Get Geo Location
-      </button>
-      {coords && (
-        <div>
-          <div>Latitude: {coords.latitude}</div>
-          <div>Longitude: {coords.longitude}</div>
-        </div>
-      )}
-
       <form onSubmit={submitForm}>
         <label htmlFor='comment'>
           Comment

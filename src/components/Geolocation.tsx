@@ -1,5 +1,4 @@
 import { useState } from 'preact/hooks'
-import { log } from '../logger'
 
 export function GeoLocation() {
   const [coords, setCoords] = useState<GeolocationCoordinates>()
@@ -7,12 +6,12 @@ export function GeoLocation() {
   function getGeoLocation() {
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        log.debug('position', position)
+        console.log(position)
         const pos = position.coords
         setCoords(pos)
       },
       (error) => {
-        log.debug('error', error)
+        console.log('error', error)
       }
     )
   }

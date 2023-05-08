@@ -20,7 +20,6 @@ import toast, { Toaster } from 'react-hot-toast'
 import './app.css'
 import { GeoLocation } from './components/Geolocation'
 import Report from './components/Report'
-import { log } from './logger'
 import { fetchData } from './queries'
 
 const queryClient = new QueryClient({
@@ -33,7 +32,7 @@ const queryClient = new QueryClient({
   },
   mutationCache: new MutationCache({
     onSuccess: (data) => {
-      log.debug('mutationCache.onSuccess', data)
+      console.log('mutationCache.onSuccess', data)
       toast.success(data)
     },
     onError: (error) => {
@@ -166,7 +165,7 @@ export function App() {
         client={queryClient}
         persistOptions={{ persister }}
         onSuccess={() => {
-          log.debug('PersistQueryClientProvider.onSuccess')
+          console.log('PersistQueryClientProvider.onSuccess')
           // resume mutations after initial restore from IDB was successful
           queryClient.resumePausedMutations().then(() => {
             queryClient.invalidateQueries()
