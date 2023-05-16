@@ -90,15 +90,15 @@ const rootRoute = new RootRoute({
           activeOptions={{ exact: true }}
         >
           Home
-        </Link>{' '}
-        {/* <Link
+        </Link>
+        <Link
           to='/report'
           activeProps={{
             className: 'font-bold'
           }}
         >
           Report
-        </Link> */}
+        </Link>
         <Link
           to='/geolocation'
           activeProps={{
