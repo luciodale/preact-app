@@ -1,30 +1,47 @@
-import { useState } from 'preact/hooks'
+import { useEffect, useState } from 'preact/hooks'
 
-export function GeoLocation() {
-  const [coords, setCoords] = useState<GeolocationCoordinates>()
+function useGeoLocation() {
+  const [coordinates, setCoordinates] = useState<GeolocationCoordinates | null>(
+    null
+  )
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [error, setError] = useState<string | null>(null)
 
   function getGeoLocation() {
+    setIsLoading(true)
+    setError(null)
+
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        console.log(position)
         const pos = position.coords
-        setCoords(pos)
+        setCoordinates(pos)
+        setIsLoading(false)
       },
       (error) => {
-        console.log('error', error)
+        setError(error.message)
+        setIsLoading(false)
       }
     )
   }
 
+  useEffect(() => {
+    getGeoLocation()
+  }, [])
+
+  return { coordinates, isLoading, error, getGeoLocation }
+}
+
+export function GeoLocation() {
+  const { coordinates, isLoading, error } = useGeoLocation()
+
   return (
-    <div className='bg-green-800'>
-      <button type='button' onClick={getGeoLocation}>
-        Get Geo Location
-      </button>
-      {coords && (
+    <div className='w-fit'>
+      {isLoading && <span>Finding Coordinates...</span>}
+      {error && <div>Error: {error}</div>}
+      {coordinates && (
         <div>
-          <div>Latitude: {coords.latitude}</div>
-          <div>Longitude: {coords.longitude}</div>
+          <div>Latitude: {coordinates.latitude}</div>
+          <div>Longitude: {coordinates.longitude}</div>
         </div>
       )}
     </div>
