@@ -56,3 +56,7 @@ queryClient.setMutationDefaults(['mutation'], {
     return axios.post('/api/data', { text }).then((res) => res.data)
   }
 })
+
+export function fetchData() {
+  return fetch('/api/data').then((res) => res.json())
+}

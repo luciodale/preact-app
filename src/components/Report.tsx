@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'preact/hooks'
-import { fetchData } from '../queries'
+import { fetchData } from '../reactQuery'
 
 export default function Report() {
   const queryClient = useQueryClient()

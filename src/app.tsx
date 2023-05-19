@@ -15,8 +15,7 @@ import './app.css'
 import { Camera } from './components/Camera'
 import { GeoLocation } from './components/Geolocation'
 import Report from './components/Report'
-import { fetchData } from './queries'
-import { persister, queryClient } from './utils'
+import { fetchData, persister, queryClient } from './reactQuery'
 
 const rootRoute = new RootRoute({
   component: () => (
