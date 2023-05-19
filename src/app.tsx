@@ -56,7 +56,6 @@ const rootRoute = new RootRoute({
           Camera
         </Link>
       </div>
-      <hr />
       <Outlet /> {/* Start rendering router matches */}
       <TanStackRouterDevtools initialIsOpen={false} position='bottom-left' />
     </>
