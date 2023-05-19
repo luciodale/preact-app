@@ -1,6 +1,10 @@
 import { useState } from 'preact/hooks'
 
-export function Camera() {
+function useCamera(): [
+  string[],
+  (event: React.ChangeEvent<HTMLInputElement>) => void,
+  (index: number) => void
+] {
   const [capturedImages, setCapturedImages] = useState<string[]>([])
 
   const handleCapture = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -14,6 +18,16 @@ export function Camera() {
       reader.readAsDataURL(file)
     }
   }
+
+  const deleteImage = (index: number) => {
+    setCapturedImages((images) => images.filter((_, i) => i !== index))
+  }
+
+  return [capturedImages, handleCapture, deleteImage]
+}
+
+export function Camera() {
+  const [capturedImages, handleCapture, deleteImage] = useCamera()
 
   return (
     <div>
@@ -29,11 +43,7 @@ export function Camera() {
           <button
             type='button'
             className='bg-red-700 text-white p-2 w-fit rounded-lg'
-            onClick={() => {
-              setCapturedImages((images) =>
-                images.filter((_, i) => i !== index)
-              )
-            }}
+            onClick={() => deleteImage(index)}
           >
             Delete
           </button>
