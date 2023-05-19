@@ -10,7 +10,13 @@ function useCamera() {
 
     async function initCamera() {
       try {
-        stream = await navigator.mediaDevices.getUserMedia({ video: true })
+        const constraints: MediaStreamConstraints =
+          typeof window !== 'undefined' && 'mediaDevices' in navigator
+            ? { video: { facingMode: 'environment' } } // Use back camera on mobile
+            : { video: true } // Use any available camera on desktop
+
+        stream = await navigator.mediaDevices.getUserMedia(constraints)
+
         if (videoRef.current) {
           videoRef.current.srcObject = stream
         }
