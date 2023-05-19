@@ -12,6 +12,7 @@ import { TanStackRouterDevtools } from '@tanstack/router-devtools'
 import { StrictMode } from 'preact/compat'
 import { Toaster } from 'react-hot-toast'
 import './app.css'
+import { Camera } from './components/Camera'
 import { GeoLocation } from './components/Geolocation'
 import Report from './components/Report'
 import { fetchData } from './queries'
@@ -45,6 +46,14 @@ const rootRoute = new RootRoute({
           }}
         >
           Geolocation
+        </Link>
+        <Link
+          to='/camera'
+          activeProps={{
+            className: 'font-bold'
+          }}
+        >
+          Camera
         </Link>
       </div>
       <hr />
@@ -80,6 +89,13 @@ const geolocationRoute = new Route({
   errorComponent: () => 'Oh crap!'
 })
 
+const cameraRoute = new Route({
+  getParentRoute: () => rootRoute,
+  path: 'camera',
+  component: () => <Camera />,
+  errorComponent: () => 'Oh crap!'
+})
+
 declare module '@tanstack/router' {
   interface Register {
     router: typeof router
@@ -89,7 +105,8 @@ declare module '@tanstack/router' {
 const routeTree = rootRoute.addChildren([
   indexRoute,
   reportRoute,
-  geolocationRoute
+  geolocationRoute,
+  cameraRoute
 ])
 
 const router = new Router({

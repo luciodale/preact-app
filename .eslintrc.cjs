@@ -42,6 +42,7 @@ module.exports = {
     'no-unused-vars': 'off',
     'no-shadow': 'off',
     'consistent-return': 'off',
-    'no-console': 'off'
+    'no-console': 'off',
+    'jsx-a11y/media-has-caption': 'off'
   }
 }
