@@ -12,9 +12,10 @@ import { TanStackRouterDevtools } from '@tanstack/router-devtools'
 import { StrictMode } from 'preact/compat'
 import { Toaster } from 'react-hot-toast'
 import './app.css'
-import { Camera } from './components/Camera'
-import { GeoLocation } from './components/Geolocation'
-import Report from './components/Report'
+import { CameraView } from './components/CameraView'
+import { GeoLocationView } from './components/GeolocationView'
+import { QRCodeView } from './components/QRCodeView'
+import { ReportView } from './components/ReportView'
 import { fetchData, persister, queryClient } from './reactQuery'
 
 const rootRoute = new RootRoute({
@@ -39,7 +40,7 @@ const rootRoute = new RootRoute({
           Report
         </Link>
         <Link
-          to='/geolocation'
+          to='/geoLocation'
           activeProps={{
             className: 'font-bold'
           }}
@@ -53,6 +54,14 @@ const rootRoute = new RootRoute({
           }}
         >
           Camera
+        </Link>
+        <Link
+          to='/qrCode'
+          activeProps={{
+            className: 'font-bold'
+          }}
+        >
+          QR Code
         </Link>
       </div>
       <Outlet /> {/* Start rendering router matches */}
@@ -76,21 +85,28 @@ const reportRoute = new Route({
   path: 'report',
   loader: () =>
     queryClient.ensureQueryData({ queryKey: ['data'], queryFn: fetchData }),
-  component: () => <Report />,
+  component: () => <ReportView />,
   errorComponent: () => 'Oh crap!'
 })
 
 const geolocationRoute = new Route({
   getParentRoute: () => rootRoute,
-  path: 'geolocation',
-  component: () => <GeoLocation />,
+  path: 'geoLocation',
+  component: () => <GeoLocationView />,
   errorComponent: () => 'Oh crap!'
 })
 
 const cameraRoute = new Route({
   getParentRoute: () => rootRoute,
   path: 'camera',
-  component: () => <Camera />,
+  component: () => <CameraView />,
+  errorComponent: () => 'Oh crap!'
+})
+
+const qrcodeRoute = new Route({
+  getParentRoute: () => rootRoute,
+  path: 'qrCode',
+  component: () => <QRCodeView />,
   errorComponent: () => 'Oh crap!'
 })
 
@@ -104,7 +120,8 @@ const routeTree = rootRoute.addChildren([
   indexRoute,
   reportRoute,
   geolocationRoute,
-  cameraRoute
+  cameraRoute,
+  qrcodeRoute
 ])
 
 const router = new Router({

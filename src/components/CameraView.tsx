@@ -1,6 +1,6 @@
 import { useCamera } from '../customHooks'
 
-export function Camera() {
+export function CameraView() {
   const [capturedImages, handleCapture, deleteImage] = useCamera()
 
   return (
