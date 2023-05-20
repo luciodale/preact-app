@@ -22,7 +22,7 @@ const rootRoute = new RootRoute({
   component: () => (
     <>
       <div className='p-2 flex gap-2 text-lg'>
-        <Link
+        {/* <Link
           to='/'
           activeProps={{
             className: 'font-bold'
@@ -38,7 +38,7 @@ const rootRoute = new RootRoute({
           }}
         >
           Report
-        </Link>
+        </Link> */}
         <Link
           to='/geoLocation'
           activeProps={{
