@@ -57,6 +57,6 @@ queryClient.setMutationDefaults(['mutation'], {
   }
 })
 
-export function fetchData() {
-  return fetch('/api/data').then((res) => res.json())
+export function fetchData(): Promise<string[]> {
+  return axios.get('/api/data').then((res) => res.data)
 }

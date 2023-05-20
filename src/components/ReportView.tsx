@@ -11,6 +11,8 @@ export function ReportView() {
     queryFn: fetchData
   })
 
+  console.log(error instanceof Error && error.message)
+
   const updateList = useMutation<
     Promise<string>,
     Promise<Error>,

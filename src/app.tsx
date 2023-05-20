@@ -84,6 +84,7 @@ const reportRoute = new Route({
   getParentRoute: () => rootRoute,
   path: 'report',
   loader: () =>
+    // reads off the cache first, if missed it refetches from server
     queryClient.ensureQueryData({ queryKey: ['data'], queryFn: fetchData }),
   component: () => <ReportView />,
   errorComponent: () => 'Oh crap!'
